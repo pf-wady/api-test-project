@@ -1,0 +1,29 @@
+{
+  "name": "api-test-project",
+  "version": "1.0.0",
+  "description": "Test Project for API Gateway + Lambda + TimeStream Stack.",
+  "main": "index.js",
+  "scripts": {
+    "check": "tsc --project ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pf-wady/api-test-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pf-wady/api-test-project/issues"
+  },
+  "homepage": "https://github.com/pf-wady/api-test-project#readme",
+  "dependencies": {
+    "@aws-sdk/client-timestream-write": "^3.245.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.109",
+    "@types/node": "^18.11.18",
+    "esbuild": "^0.16.16",
+    "serverless-esbuild": "^1.37.0",
+    "typescript": "^4.9.4"
+  }
+}

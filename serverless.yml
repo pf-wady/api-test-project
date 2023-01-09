@@ -3,12 +3,74 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
+  region: ap-northeast-1
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/postHandler.hello
+    role: apiTestProjectLambdaRole
     events:
       - httpApi:
           path: /
           method: get
+
+resources:
+  Resources:
+    apiTestProjectLambdaRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: ApiTestProjectLambdaRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: ApiTestProjectLambdaTimeStreamAccessPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action: 
+                    - timestream:DescribeEndpoints
+                  Resource:
+                    - '*'
+                - Effect: Allow
+                  Action:
+                    - timestream:WriteRecords
+                  Resource:
+                    - 'Fn::Join':
+                      - ':'
+                      -
+                        - 'arn:aws:timestream'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - 'database/LambdaTestDB/table/testTable'
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource:
+                    - 'Fn::Join':
+                      - ':'
+                      -
+                        - 'arn:aws:logs'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - 'log-group:/aws/lambda/*:*:*'
+
+custom:
+  esbuild:
+    bundle: true
+    minify: false
+    target: node18
+    platform: node
+
+plugins:
+  - serverless-esbuild
