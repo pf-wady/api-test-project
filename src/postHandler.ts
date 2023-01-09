@@ -1,7 +1,7 @@
-import type { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 import { TimestreamWriteClient, WriteRecordsCommand } from "@aws-sdk/client-timestream-write";
+import type { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 
-export const hello = async (event: APIGatewayEvent, context:Context): Promise<APIGatewayProxyResult> => {
+export const handler = async (event: APIGatewayEvent, context:Context): Promise<APIGatewayProxyResult> => {
     
     const currentTime = Date.now().toString();
 

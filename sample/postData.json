@@ -1,0 +1,16 @@
+{
+  "message": "Go Serverless v3.0! Your function executed successfully!",
+  "response": {
+    "$metadata": {
+      "httpStatusCode": 200,
+      "requestId": "xxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "attempts": 1,
+      "totalRetryDelay": 0
+    },
+    "RecordsIngested": {
+      "MagneticStore": 0,
+      "MemoryStore": 1,
+      "Total": 1
+    }
+  }
+}
